@@ -75,7 +75,7 @@ const resMsg = (payload) => {
   const finalCode = error.code || error.statusCode || code;
   msg = {
     success: false,
-    error: error.message,
+    error: error.message || error,
     code: finalCode,
   };
   if (!isProd) {
