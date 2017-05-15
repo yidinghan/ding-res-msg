@@ -20,7 +20,13 @@ const parseArguments = (payload = {}) => {
  * @param {object} payload - input arguments or Error
  * @param {Error|string} payload.error - failed response error
  * @param {*} payload.data - success response data
- * @param {number} payload.key - description
+ * @param {number} payload.code - failed response error code
+ * @param {boolean} payload.isPagination - Whether to update the data object to msg
+ * @return {object} formatted response msg body
+ * @example
+ * const resMsg = require('ding-res-msg');
+ * console.log(resMsg());
+ * // { success: true, data: undefined }
  */
 const resMsg = (payload = {}) => {
   const {
