@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "doc": "documentation readme index.js --section=JSDoc",
+    "nyc": "nyc npm test && nyc report --reporter=html",
     "test": "ava"
   },
   "repository": {
@@ -30,6 +31,7 @@
     "documentation": "^4.0.0-rc.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.2.0"
+    "eslint-plugin-import": "^2.2.0",
+    "nyc": "^10.3.2"
   }
 }

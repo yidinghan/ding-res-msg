@@ -73,3 +73,11 @@ test('get failed msg with msg.statusCode is error.code', (t) => {
   t.is(error, 'test', 'should use error.message');
   t.is(code, 403);
 });
+
+test('get success msg with data', (t) => {
+  const msg = resMsg({ data: 'success' });
+
+  const { success, data } = msg;
+  t.true(success, 'success flag');
+  t.is(data, 'success');
+});

@@ -20,8 +20,8 @@ const parseArguments = (payload = {}) => {
  * @param {object} payload - input arguments or Error
  * @param {Error|string} payload.error - failed response error
  * @param {*} payload.data - success response data
- * @param {number} payload.code - failed response error code
- * @param {boolean} payload.isPagination - Whether to update the data object to msg
+ * @param {number} [payload.code=400] - failed response error code
+ * @param {boolean} [payload.isPagination=false] - Whether to update the data object to msg
  * @return {object} formatted response msg body,
  *                  if is failed msg and error have `code` or `statusCode`
  *                  msg.code would take that first
@@ -57,7 +57,7 @@ const parseArguments = (payload = {}) => {
  * console.log(resMsg(new Error('test')));
  * // { success: false, error: 'test', code: 400, stack: ['msg', '...'] }
  */
-const resMsg = (payload = {}) => {
+const resMsg = (payload) => {
   const {
     error,
     data,
