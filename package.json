@@ -20,6 +20,9 @@
   "bugs": {
     "url": "https://github.com/yidinghan/ding-res-msg/issues"
   },
+  "engines": {
+    "node": ">=6"
+  },
   "homepage": "https://github.com/yidinghan/ding-res-msg#readme",
   "devDependencies": {
     "ava": "^0.19.1",
