@@ -6,7 +6,7 @@
 [![npm](https://img.shields.io/npm/dm/ding-res-msg.svg?style=flat-square)](https://www.npmjs.com/package/ding-res-msg)
 [![David](https://img.shields.io/david/yidinghan/ding-res-msg.svg?style=flat-square)](https://www.npmjs.com/package/ding-res-msg)
 [![David](https://img.shields.io/david/dev/yidinghan/ding-res-msg.svg?style=flat-square)](https://www.npmjs.com/package/ding-res-msg)
-[![node](https://img.shields.io/node/v/ding-res-msg.svg)](https://www.npmjs.com/package/ding-res-msg)
+[![node](https://img.shields.io/node/v/ding-res-msg.svg?style=flat-square)](https://www.npmjs.com/package/ding-res-msg)
 
 Response body formatter
 
