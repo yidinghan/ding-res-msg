@@ -21,7 +21,7 @@ const parseArguments = (payload = {}) => {
  * @param {Error|string} payload.error - failed response error
  * @param {*} payload.data - success response data
  * @param {number} [payload.code=400] - failed response error code
- * @param {boolean} [payload.isPagination=false] - Whether to update the data object to msg
+ * @param {boolean} [payload.isPaging=false] - Whether to update the data object to msg
  * @return {object} formatted response msg body,
  *                  if is failed msg and error have `code` or `statusCode`
  *                  msg.code would take that first
@@ -29,6 +29,9 @@ const parseArguments = (payload = {}) => {
  * const resMsg = require('ding-res-msg');
  * console.log(resMsg());
  * // { success: true, data: undefined }
+ *
+ * console.log(resMsg({ data: { total: 100 }, isPaging: true }));
+ * // { success: true, total: 100 }
  *
  * console.log(resMsg({ error: new Error('test') }));
  * // { success: false, error: 'test', code: 400 }
@@ -62,12 +65,13 @@ const resMsg = (payload) => {
     error,
     data,
     code = 400,
-    isPagination = false,
+    isPaging = false,
   } = parseArguments(payload);
 
   let msg = { success: true, data };
   if (!error) {
-    if (isPagination) {
+    if (isPaging) {
+      delete msg.data;
       Object.assign(msg, data);
     }
     return msg;
