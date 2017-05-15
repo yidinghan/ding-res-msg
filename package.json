@@ -1,0 +1,24 @@
+{
+  "name": "ding-res-msg",
+  "version": "0.1.0",
+  "description": "response body formatter",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yidinghan/ding-res-msg.git"
+  },
+  "keywords": [
+    "response",
+    "express",
+    "koa"
+  ],
+  "author": "yidinghan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yidinghan/ding-res-msg/issues"
+  },
+  "homepage": "https://github.com/yidinghan/ding-res-msg#readme"
+}
