@@ -22,7 +22,7 @@ const parseArguments = (payload = {}) => {
  * @param {*} payload.data - success response data
  * @param {number} payload.code - failed response error code
  * @param {boolean} payload.isPagination - Whether to update the data object to msg
- * @return {object} formatted response msg body
+ * @return {object} formatted response msg body,
  *                  if is failed msg and error have `code` or `statusCode`
  *                  msg.code would take that first
  * @example
