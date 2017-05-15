@@ -86,6 +86,15 @@ test('Get the failed msg by customizing error.stack', (t) => {
   t.deepEqual(stack, err.stack);
 });
 
+test('get failed msg with array object', (t) => {
+  const msg = resMsg({ error: ['test'] });
+
+  const { success, error, code } = msg;
+  t.false(success, 'success flag');
+  t.deepEqual(error, ['test']);
+  t.is(code, 400);
+});
+
 test('get failed msg with string error in payload field', (t) => {
   const msg = resMsg({ error: 'test' });
 
