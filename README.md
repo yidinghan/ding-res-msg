@@ -30,4 +30,44 @@ res msg formattor
 -   `payload` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** input arguments or Error (optional, default `{}`)
     -   `payload.error` **([Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) \| [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))** failed response error
     -   `payload.data` **any** success response data
-    -   `payload.key` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** description
+    -   `payload.code` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** failed response error code
+    -   `payload.isPagination` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether to update the data object to msg
+
+**Examples**
+
+```javascript
+const resMsg = require('ding-res-msg');
+console.log(resMsg());
+// { success: true, data: undefined }
+
+console.log(resMsg({ error: new Error('test') }));
+// { success: false, error: 'test', code: 400 }
+
+// Error field supports string error
+console.log(resMsg({ error: 'test' }));
+// { success: false, error: 'test', code: 400 }
+
+// You can put the error directly in the first place
+console.log(resMsg(new Error('test')));
+// { success: false, error: 'test', code: 400 }
+
+// Use error.code as msg.code
+const error = new Error('test');
+error.code = 503;
+console.log(resMsg(error));
+// { success: false, error: 'test', code: 503 }
+
+// customised msg.code without error.code;
+console.log(resMsg({ error: new Error('test'), code: 500 }));
+// { success: false, error: 'test', code: 500 }
+
+// NODE_ENV !== 'prod'
+// You can get stack trace in the response body
+// As long as you are not running in the production environment
+console.log(resMsg(new Error('test')));
+// { success: false, error: 'test', code: 400, stack: ['msg', '...'] }
+```
+
+Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** formatted response msg body
+                 if is failed msg and error have `code` or `statusCode`
+                 msg.code would take that first
