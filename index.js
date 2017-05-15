@@ -23,10 +23,29 @@ const parseArguments = (payload = {}) => {
  * @param {number} payload.code - failed response error code
  * @param {boolean} payload.isPagination - Whether to update the data object to msg
  * @return {object} formatted response msg body
+ *                  if is failed msg and error have `code` or `statusCode`
+ *                  msg.code would take that first
  * @example
  * const resMsg = require('ding-res-msg');
  * console.log(resMsg());
  * // { success: true, data: undefined }
+ *
+ * console.log(resMsg({ error: new Error('test') }));
+ * // { success: false, error: 'test', code: 400 }
+ *
+ * // Error field supports string error
+ * console.log(resMsg({ error: 'test' }));
+ * // { success: false, error: 'test', code: 400 }
+ *
+ * // You can put the error directly in the first place
+ * console.log(resMsg(new Error('test')));
+ * // { success: false, error: 'test', code: 400 }
+ *
+ * // NODE_ENV !== 'prod'
+ * // You can get stack trace in the response body
+ * // As long as you are not running in the production environment
+ * console.log(resMsg(new Error('test')));
+ * // { success: false, error: 'test', code: 400, stack: ['msg', '...'] }
  */
 const resMsg = (payload = {}) => {
   const {
