@@ -1,6 +1,6 @@
 {
   "name": "ding-res-msg",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "response body formatter",
   "main": "index.js",
   "scripts": {
