@@ -17,7 +17,10 @@ const parseArguments = (payload = {}) => {
 /**
  * res msg formattor
  *
- * @param {object} payload - input arguments
+ * @param {object} payload - input arguments or Error
+ * @param {Error|string} payload.error - failed response error
+ * @param {*} payload.data - success response data
+ * @param {number} payload.key - description
  */
 const resMsg = (payload = {}) => {
   const {

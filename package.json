@@ -4,6 +4,7 @@
   "description": "response body formatter",
   "main": "index.js",
   "scripts": {
+    "doc": "documentation readme index.js --section=JSDoc",
     "test": "ava"
   },
   "repository": {
@@ -26,6 +27,7 @@
   "homepage": "https://github.com/yidinghan/ding-res-msg#readme",
   "devDependencies": {
     "ava": "^0.19.1",
+    "documentation": "^4.0.0-rc.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.2.0"
