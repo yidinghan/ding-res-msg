@@ -13,10 +13,61 @@ Response body formatter
 <!-- TOC -->
 
 - [ding-res-msg](#ding-res-msg)
+- [Usage](#usage)
+  - [Installation](#installation)
+  - [Quick Start](#quick-start)
+  - [Examples](#examples)
 - [JSDoc](#jsdoc)
   - [resMsg](#resmsg)
 
 <!-- /TOC -->
+
+# Usage
+
+## Installation
+
+```shell
+npm i --save ding-res-msg
+```
+
+## Quick Start
+
+```js
+const resMsg = require('ding-res-msg');
+
+// express
+const controller = (req, res) => {
+    const data = 'hello world';
+    res.send(resMsg({ data }))
+}
+
+// koa2
+const controller = (ctx, next) => {
+    const data = 'hello world';
+    ctx.body = resMsg({ data }); 
+}
+```
+
+## Examples
+
+```js
+const resMsg = require('ding-res-msg');
+
+console.log(resMsg());
+// { success: true, data: undefined }
+
+console.log(resMsg({
+    data: {
+        hello: 'world'
+    }
+}));
+// { success: true, data: { hello: 'world' } }
+
+console.log(resMsg({ error: new Error('test') }));
+// { success: false, error: 'test', code: 400 }
+```
+
+More examples can be found on [jsdoc](#resmsg)
 
 # JSDoc
 
@@ -28,11 +79,11 @@ res msg formattor
 
 **Parameters**
 
--   `payload` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** input arguments or Error (optional, default `{}`)
+-   `payload` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** input arguments or Error
     -   `payload.error` **([Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) \| [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))** failed response error
     -   `payload.data` **any** success response data
-    -   `payload.code` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** failed response error code
-    -   `payload.isPagination` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether to update the data object to msg
+    -   `payload.code` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** failed response error code (optional, default `400`)
+    -   `payload.isPaging` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether to update the data object to msg (optional, default `false`)
 
 **Examples**
 
@@ -40,6 +91,9 @@ res msg formattor
 const resMsg = require('ding-res-msg');
 console.log(resMsg());
 // { success: true, data: undefined }
+
+console.log(resMsg({ data: { total: 100 }, isPaging: true }));
+// { success: true, total: 100 }
 
 console.log(resMsg({ error: new Error('test') }));
 // { success: false, error: 'test', code: 400 }
@@ -69,6 +123,6 @@ console.log(resMsg(new Error('test')));
 // { success: false, error: 'test', code: 400, stack: ['msg', '...'] }
 ```
 
-Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** formatted response msg body
+Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** formatted response msg body,
                  if is failed msg and error have `code` or `statusCode`
                  msg.code would take that first
