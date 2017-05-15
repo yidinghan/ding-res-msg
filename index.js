@@ -41,6 +41,16 @@ const parseArguments = (payload = {}) => {
  * console.log(resMsg(new Error('test')));
  * // { success: false, error: 'test', code: 400 }
  *
+ * // Use error.code as msg.code
+ * const error = new Error('test');
+ * error.code = 503;
+ * console.log(resMsg(error));
+ * // { success: false, error: 'test', code: 503 }
+ *
+ * // customised msg.code without error.code;
+ * console.log(resMsg({ error: new Error('test'), code: 500 }));
+ * // { success: false, error: 'test', code: 500 }
+ *
  * // NODE_ENV !== 'prod'
  * // You can get stack trace in the response body
  * // As long as you are not running in the production environment
