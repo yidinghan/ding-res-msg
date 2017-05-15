@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/yidinghan/ding-res-msg/compare/v1.0.0...v1.1.0) (2017-05-15)
+
+
+### Features
+
+* **res msg:** use error itself when not error.message found ([d7997bb](https://github.com/yidinghan/ding-res-msg/commit/d7997bb))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/yidinghan/ding-res-msg/compare/v0.2.2...v1.0.0) (2017-05-15)
 
