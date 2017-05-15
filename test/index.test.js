@@ -74,6 +74,18 @@ test('get failed msg with msg.statusCode is error.code', (t) => {
   t.is(code, 403);
 });
 
+test('Get the failed msg by customizing error.stack', (t) => {
+  const err = new Error('test');
+  err.stack = { raw: err.stack, stack: err.stack.split('\n') };
+  const msg = JSON.parse(JSON.stringify(resMsg({ error: err })));
+
+  const { success, error, code, stack } = msg;
+  t.false(success, 'success flag');
+  t.is(error, 'test', 'should use error.message');
+  t.is(code, 400);
+  t.deepEqual(stack, err.stack);
+});
+
 test('get failed msg with string error in payload field', (t) => {
   const msg = resMsg({ error: 'test' });
 
