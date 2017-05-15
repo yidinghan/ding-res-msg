@@ -74,10 +74,28 @@ test('get failed msg with msg.statusCode is error.code', (t) => {
   t.is(code, 403);
 });
 
+test('get failed msg with string error in payload field', (t) => {
+  const msg = resMsg({ error: 'test' });
+
+  const { success, error, code } = msg;
+  t.false(success, 'success flag');
+  t.is(error, 'test', 'should use error.message');
+  t.is(code, 400);
+});
+
 test('get success msg with data', (t) => {
   const msg = resMsg({ data: 'success' });
 
   const { success, data } = msg;
   t.true(success, 'success flag');
   t.is(data, 'success');
+});
+
+test('get success msg with isPagination:true', (t) => {
+  const msg = resMsg({ data: { total: 100 }, isPaging: true });
+
+  const { success, data, total } = msg;
+  t.true(success, 'success flag');
+  t.is(data, undefined);
+  t.is(total, 100);
 });
