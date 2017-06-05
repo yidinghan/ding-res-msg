@@ -84,6 +84,8 @@ res msg formattor
     -   `payload.data` **any** success response data
     -   `payload.code` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** failed response error code (optional, default `400`)
     -   `payload.isPaging` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether to update the data object to msg (optional, default `false`)
+    -   `payload.isProduction` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether to add the stack to the msg,
+                         if true will not add
 
 **Examples**
 
@@ -120,6 +122,18 @@ console.log(resMsg({ error: new Error('test'), code: 500 }));
 // You can get stack trace in the response body
 // As long as you are not running in the production environment
 console.log(resMsg(new Error('test')));
+// { success: false, error: 'test', code: 400, stack: ['msg', '...'] }
+
+// NODE_ENV !== 'prod'
+// You cannot get stack trace in the response body
+// event you are not running in a not prod environment
+console.log(resMsg({ error: 'test', isProduction: true }));
+// { success: false, error: 'test', code: 400 }
+
+// NODE_ENV === 'prod'
+// You can get stack trace in the response body
+// event you are running in a prod environment
+console.log(resMsg({ error: 'test', isProduction: false }));
 // { success: false, error: 'test', code: 400, stack: ['msg', '...'] }
 ```
 
