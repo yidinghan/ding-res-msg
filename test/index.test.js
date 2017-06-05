@@ -86,6 +86,12 @@ test('Get the failed msg by customizing error.stack', (t) => {
   t.deepEqual(stack, err.stack);
 });
 
+test('get failed msg without stack when isProduction:false', (t) => {
+  const msg = resMsg({ error: 'test', isProduction: true });
+
+  t.false(has.call(msg, 'stack'));
+});
+
 test('get failed msg with array object', (t) => {
   const msg = resMsg({ error: ['test'] });
 
