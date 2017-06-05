@@ -61,7 +61,7 @@ const parseArguments = (payload = {}) => {
  * // { success: false, error: 'test', code: 400, stack: ['msg', '...'] }
  */
 const resMsg = (payload) => {
-  const { error, data, code = 400, isPaging = false } = parseArguments(payload);
+  const { error, data, code = 400, isPaging = false, isProduction } = parseArguments(payload);
 
   let msg = { success: true, data };
   if (!error) {
@@ -78,7 +78,9 @@ const resMsg = (payload) => {
     error: error.message || error,
     code: finalCode,
   };
-  if (!isProd) {
+
+  const isNotStack = (isProduction === undefined ? isProd : isProduction) === true;
+  if (isNotStack === false) {
     msg.stack = (typeof error.stack === 'string' && error.stack.split('\n')) || error.stack;
   }
 
