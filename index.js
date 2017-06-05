@@ -22,6 +22,8 @@ const parseArguments = (payload = {}) => {
  * @param {*} payload.data - success response data
  * @param {number} [payload.code=400] - failed response error code
  * @param {boolean} [payload.isPaging=false] - Whether to update the data object to msg
+ * @param {boolean} [payload.isProduction] - Whether to add the stack to the msg,
+ *                  if true will not add
  * @return {object} formatted response msg body,
  *                  if is failed msg and error have `code` or `statusCode`
  *                  msg.code would take that first
@@ -58,6 +60,18 @@ const parseArguments = (payload = {}) => {
  * // You can get stack trace in the response body
  * // As long as you are not running in the production environment
  * console.log(resMsg(new Error('test')));
+ * // { success: false, error: 'test', code: 400, stack: ['msg', '...'] }
+ *
+ * // NODE_ENV !== 'prod'
+ * // You cannot get stack trace in the response body
+ * // event you are not running in a not prod environment
+ * console.log(resMsg({ error: 'test', isProduction: true }));
+ * // { success: false, error: 'test', code: 400 }
+ *
+ * // NODE_ENV === 'prod'
+ * // You can get stack trace in the response body
+ * // event you are running in a prod environment
+ * console.log(resMsg({ error: 'test', isProduction: false }));
  * // { success: false, error: 'test', code: 400, stack: ['msg', '...'] }
  */
 const resMsg = (payload) => {
