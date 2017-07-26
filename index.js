@@ -12,7 +12,8 @@ const isProd = /prod/.test(process.env.NODE_ENV);
 
 /**
  * @typedef {Object} Message
- * @property {boolean} success - whether happend
+ * @property {boolean} [success=true] - whether happend
+ * @property {number} [code=400] - failed response error code
  */
 
 /**
