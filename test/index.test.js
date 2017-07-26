@@ -1,8 +1,28 @@
 const { test } = require('ava');
+const boom = require('boom');
 
 const resMsg = require('../');
 
+
 const has = Object.hasOwnProperty;
+
+test('should success handler boom error 503', (t) => {
+  const msg = resMsg(boom.create(503));
+
+  const { success, error, code } = msg;
+  t.false(success, 'success flag');
+  t.is(error, 'Service Unavailable', 'default boom 503 error message');
+  t.is(code, 503);
+});
+
+test('should success handler boom error 400', (t) => {
+  const msg = resMsg(boom.create(400));
+
+  const { success, error, code } = msg;
+  t.false(success, 'success flag');
+  t.is(error, 'Bad Request', 'default 400 boom error');
+  t.is(code, 400);
+});
 
 test('get success msg without any input', (t) => {
   const msg = resMsg();
@@ -54,6 +74,7 @@ test('get failed msg with object input', (t) => {
 
 test('get failed msg with msg.code is error.code', (t) => {
   const err = new Error('test');
+  // @ts-ignore
   err.code = 401;
   const msg = resMsg({ error: err });
 
@@ -65,6 +86,7 @@ test('get failed msg with msg.code is error.code', (t) => {
 
 test('get failed msg with msg.statusCode is error.code', (t) => {
   const err = new Error('test');
+  // @ts-ignore
   err.statusCode = 403;
   const msg = resMsg({ error: err });
 
@@ -76,6 +98,7 @@ test('get failed msg with msg.statusCode is error.code', (t) => {
 
 test('Get the failed msg by customizing error.stack', (t) => {
   const err = new Error('test');
+  // @ts-ignore
   err.stack = { raw: err.stack, stack: err.stack.split('\n') };
   const msg = JSON.parse(JSON.stringify(resMsg({ error: err })));
 

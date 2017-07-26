@@ -24,7 +24,7 @@ const parseArguments = (payload = {}) => {
 /**
  * res msg formattor
  *
- * @param {Object} payload - input arguments or Error
+ * @param {Object} [payload] - input arguments or Error
  * @param {Error|string} payload.error - failed response error
  * @param {*} payload.data - success response data
  * @param {number} [payload.code=400] - failed response error code
@@ -94,11 +94,11 @@ const resMsg = (payload) => {
   }
 
   const finalCode = error.code || error.statusCode || code;
+  // @ts-ignore
   msg = {
     success: false,
     error: error.message || error,
     code: finalCode,
-    data: null,
   };
 
   const isNotStack = (isProduction === undefined ? isProd : isProduction) === true;

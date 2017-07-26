@@ -29,6 +29,7 @@
   "devDependencies": {
     "@types/node": "^8.0.16",
     "ava": "^0.19.1",
+    "boom": "^5.2.0",
     "documentation": "^4.0.0-rc.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
