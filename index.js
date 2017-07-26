@@ -1,21 +1,41 @@
 const isProd = /prod/.test(process.env.NODE_ENV);
 
+/**
+ * @typedef {Error|Object} InputPayload
+ * @property {Error|string} error - failed response error
+ * @property {*} data - success response data
+ * @property {number} [code=400] - failed response error code
+ * @property {boolean} [isPaging=false] - Whether to update the data object to msg
+ * @property {boolean} [isProduction] - Whether to add the stack to the msg,
+ *                  if true will not add
+ */
+
+/**
+ * @typedef {Object} Message
+ * @property {boolean} success - whether happend
+ */
+
+/**
+ * format input arguments
+ *
+ * @param {InputPayload} payload
+ * @return {InputPayload}
+ */
 const parseArguments = (payload = {}) => {
-  if (payload instanceof Error) {
+  if (payload.isBoom) {
+    return {
+      error: payload,
+      code: payload.output.statusCode,
+    };
+  } else if (payload instanceof Error) {
     return { error: payload };
   }
 
   const error = payload.error;
-  if (error !== undefined) {
-    if (typeof error === 'string') {
-      return Object.assign(payload, {
-        error: new Error(error),
-      });
-    } else if (error.isBoom) {
-      return Object.assign(payload, {
-        code: error.output.statusCode,
-      });
-    }
+  if (error !== undefined && typeof error === 'string') {
+    return Object.assign(payload, {
+      error: new Error(error),
+    });
   }
 
   return payload;
@@ -24,14 +44,8 @@ const parseArguments = (payload = {}) => {
 /**
  * res msg formattor
  *
- * @param {Object} [payload] - input arguments or Error
- * @param {Error|string} payload.error - failed response error
- * @param {*} payload.data - success response data
- * @param {number} [payload.code=400] - failed response error code
- * @param {boolean} [payload.isPaging=[false] - Whether to update the data object to msg
- * @param {boolean} [payload.isProduction] - Whether to add the stack to the msg,
- *                  if true will not add
- * @return {Object} formatted response msg body,
+ * @param {InputPayload} [payload={}] - input arguments or Error
+ * @return {Message} formatted response msg body,
  *                  if is failed msg and error have `code` or `statusCode`
  *                  msg.code would take that first
  * @example
@@ -82,7 +96,13 @@ const parseArguments = (payload = {}) => {
  * // { success: false, error: 'test', code: 400, stack: ['msg', '...'] }
  */
 const resMsg = (payload) => {
-  const { error, data, code = 400, isPaging = false, isProduction } = parseArguments(payload);
+  const {
+    error,
+    data,
+    code = 400,
+    isPaging = false,
+    isProduction,
+  } = parseArguments(payload);
 
   let msg = { success: true, data };
   if (!error) {
@@ -101,9 +121,11 @@ const resMsg = (payload) => {
     code: finalCode,
   };
 
-  const isNotStack = (isProduction === undefined ? isProd : isProduction) === true;
+  const isNotStack =
+    (isProduction === undefined ? isProd : isProduction) === true;
   if (isNotStack === false) {
-    msg.stack = (typeof error.stack === 'string' && error.stack.split('\n')) || error.stack;
+    msg.stack =
+      typeof error.stack === 'string' ? error.stack.split('\n') : error.stack;
   }
 
   return msg;
