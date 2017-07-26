@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/yidinghan/ding-res-msg#readme",
   "devDependencies": {
+    "@types/node": "^8.0.16",
     "ava": "^0.19.1",
     "documentation": "^4.0.0-rc.1",
     "eslint": "^3.19.0",

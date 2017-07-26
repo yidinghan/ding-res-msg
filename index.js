@@ -5,10 +5,17 @@ const parseArguments = (payload = {}) => {
     return { error: payload };
   }
 
-  if (payload.error !== undefined && typeof payload.error === 'string') {
-    return Object.assign(payload, {
-      error: new Error(payload.error),
-    });
+  const error = payload.error;
+  if (error !== undefined) {
+    if (typeof error === 'string') {
+      return Object.assign(payload, {
+        error: new Error(error),
+      });
+    } else if (error.isBoom) {
+      return Object.assign(payload, {
+        code: error.output.statusCode,
+      });
+    }
   }
 
   return payload;
@@ -17,14 +24,14 @@ const parseArguments = (payload = {}) => {
 /**
  * res msg formattor
  *
- * @param {object} payload - input arguments or Error
+ * @param {Object} payload - input arguments or Error
  * @param {Error|string} payload.error - failed response error
  * @param {*} payload.data - success response data
  * @param {number} [payload.code=400] - failed response error code
- * @param {boolean} [payload.isPaging=false] - Whether to update the data object to msg
+ * @param {boolean} [payload.isPaging=[false] - Whether to update the data object to msg
  * @param {boolean} [payload.isProduction] - Whether to add the stack to the msg,
  *                  if true will not add
- * @return {object} formatted response msg body,
+ * @return {Object} formatted response msg body,
  *                  if is failed msg and error have `code` or `statusCode`
  *                  msg.code would take that first
  * @example
@@ -91,6 +98,7 @@ const resMsg = (payload) => {
     success: false,
     error: error.message || error,
     code: finalCode,
+    data: null,
   };
 
   const isNotStack = (isProduction === undefined ? isProd : isProduction) === true;
