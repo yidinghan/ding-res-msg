@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/yidinghan/ding-res-msg#readme",
   "devDependencies": {
+    "@types/boom": "^4.3.5",
     "@types/node": "^8.0.16",
     "ava": "^0.19.1",
     "boom": "^5.2.0",
