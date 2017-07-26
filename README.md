@@ -75,6 +75,8 @@ More examples can be found on [jsdoc](#resmsg)
 
 ## InputPayload
 
+resMsg input arguments object define
+
 Type: ([Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) \| [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object))
 
 **Parameters**
@@ -92,6 +94,8 @@ Type: ([Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 
 ## Message
 
+resMsg return object define
+
 Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
 **Parameters**
@@ -100,7 +104,10 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 
 **Properties**
 
--   `success` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** whether happend
+-   `success` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** whether happend
+-   `data` **any?** success response data
+-   `code` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** failed response error code
+-   `error` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** failed response error
 
 ## parseArguments
 
@@ -110,7 +117,7 @@ format input arguments
 
 -   `payload` **[InputPayload](#inputpayload)**  (optional, default `{}`)
 
-Returns **[InputPayload](#inputpayload)** 
+Returns **[InputPayload](#inputpayload)** formated payload
 
 ## resMsg
 

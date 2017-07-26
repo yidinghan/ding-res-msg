@@ -1,6 +1,7 @@
 const isProd = /prod/.test(process.env.NODE_ENV);
 
 /**
+ * resMsg input arguments object define
  * @typedef {Error|Object} InputPayload
  * @property {Error|string} error - failed response error
  * @property {*} data - success response data
@@ -11,16 +12,19 @@ const isProd = /prod/.test(process.env.NODE_ENV);
  */
 
 /**
+ * resMsg return object define
  * @typedef {Object} Message
  * @property {boolean} [success=true] - whether happend
+ * @property {*} [data] - success response data
  * @property {number} [code=400] - failed response error code
+ * @property {string} [error] - failed response error
  */
 
 /**
  * format input arguments
  *
  * @param {InputPayload} payload
- * @return {InputPayload}
+ * @return {InputPayload} formated payload
  */
 const parseArguments = (payload = {}) => {
   if (payload.isBoom) {
