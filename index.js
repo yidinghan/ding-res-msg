@@ -99,6 +99,12 @@ const parseArguments = (payload = {}) => {
  * // event you are running in a prod environment
  * console.log(resMsg({ error: 'test', isProduction: false }));
  * // { success: false, error: 'test', code: 400, stack: ['msg', '...'] }
+ *
+ * // use boom to create error
+ * const boom = require('boom');
+ * const error = boom.create(400)
+ * console.log(resMsg(error));
+ * // { success: false, error: 'Bad Request', code: 400, stack: ['Error', '...'] }
  */
 const resMsg = (payload) => {
   const {
