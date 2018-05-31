@@ -3,11 +3,10 @@ const boom = require('boom');
 
 const resMsg = require('../');
 
-
 const has = Object.hasOwnProperty;
 
 test('should success handler boom error 503', (t) => {
-  const msg = resMsg(boom.create(503));
+  const msg = resMsg(boom.serverUnavailable());
 
   const { success, error, code } = msg;
   t.false(success, 'success flag');
@@ -16,7 +15,7 @@ test('should success handler boom error 503', (t) => {
 });
 
 test('should success handler boom error 400', (t) => {
-  const msg = resMsg(boom.create(400));
+  const msg = resMsg(boom.badRequest());
 
   const { success, error, code } = msg;
   t.false(success, 'success flag');
@@ -45,7 +44,9 @@ test('get failed msg with first arg is Error', (t) => {
   t.true(has.call(msg, 'code'));
   t.true(has.call(msg, 'stack'));
 
-  const { success, error, code, stack } = msg;
+  const {
+    success, error, code, stack,
+  } = msg;
   t.false(success, 'success flag');
   t.is(error, 'test', 'should use error.message');
   t.is(code, 400, 'should use default code');
@@ -56,7 +57,9 @@ test('get failed msg with first arg is Error', (t) => {
 test('get failed msg with object input', (t) => {
   const msg = resMsg({ error: new Error('test') });
 
-  const { success, error, code, stack } = msg;
+  const {
+    success, error, code, stack,
+  } = msg;
   t.false(success, 'success flag');
   t.is(error, 'test', 'should use error.message');
   t.is(code, 400, 'should use default code');
@@ -102,7 +105,9 @@ test('Get the failed msg by customizing error.stack', (t) => {
   err.stack = { raw: err.stack, stack: err.stack.split('\n') };
   const msg = JSON.parse(JSON.stringify(resMsg({ error: err })));
 
-  const { success, error, code, stack } = msg;
+  const {
+    success, error, code, stack,
+  } = msg;
   t.false(success, 'success flag');
   t.is(error, 'test', 'should use error.message');
   t.is(code, 400);
