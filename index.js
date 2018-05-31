@@ -40,7 +40,7 @@ const parseArguments = (payload = {}) => {
   const err = payload.error;
   if (err !== undefined && typeof err === 'string') {
     return Object.assign(payload, {
-      err: new Error(err),
+      error: new Error(err),
     });
   }
 
