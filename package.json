@@ -27,14 +27,14 @@
   },
   "homepage": "https://github.com/yidinghan/ding-res-msg#readme",
   "devDependencies": {
-    "@types/boom": "^4.3.5",
-    "@types/node": "^8.0.16",
-    "ava": "^0.21.0",
-    "boom": "^5.2.0",
-    "documentation": "^4.0.0-rc.1",
-    "eslint": "^4.3.0",
-    "eslint-config-airbnb-base": "^11.3.1",
-    "eslint-plugin-import": "^2.7.0",
-    "nyc": "^11.0.3"
+    "@types/boom": "^7.2.0",
+    "@types/node": "^10.1.4",
+    "ava": "^0.25.0",
+    "boom": "^7.2.0",
+    "documentation": "^7.1.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "nyc": "^11.8.0"
   }
 }
