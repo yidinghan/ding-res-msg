@@ -17,7 +17,8 @@ const isProd = /prod/.test(process.env.NODE_ENV);
  * @property {boolean} [success=true] - whether happend
  * @property {*} [data] - success response data
  * @property {number} [code=400] - failed response error code
- * @property {string} [error] - failed response error
+ * @property {string|string[]} [error] - failed response error
+ * @property {string[]} [stack] - failed response error
  */
 
 /**
@@ -36,10 +37,10 @@ const parseArguments = (payload = {}) => {
     return { error: payload };
   }
 
-  const error = payload.error;
-  if (error !== undefined && typeof error === 'string') {
+  const err = payload.error;
+  if (err !== undefined && typeof err === 'string') {
     return Object.assign(payload, {
-      error: new Error(error),
+      err: new Error(err),
     });
   }
 

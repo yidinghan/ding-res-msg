@@ -149,6 +149,7 @@ test('get success msg with data', (t) => {
 test('get success msg with isPagination:true', (t) => {
   const msg = resMsg({ data: { total: 100 }, isPaging: true });
 
+  // @ts-ignore
   const { success, data, total } = msg;
   t.true(success, 'success flag');
   t.is(data, undefined);
